@@ -1,0 +1,8 @@
+led=24
+bt=23
+dht11=21
+
+motor:
+    in1 = 2
+    in2 = 3
+    en = 4
