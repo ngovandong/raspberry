@@ -24,15 +24,16 @@ a_controller = ac.AudioControl()
 control_mode = False
 
 LED=24
-BT=23
+# BT=23
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 GPIO.setup(LED, GPIO.OUT)  #LED to GPIO24
-GPIO.setup(BT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+# GPIO.setup(BT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+# GPIO.setup(BT, GPIO.IN)
 
 
-url="https://rasserver.up.railway.app/api/predict/"
+url="https://rasserver.up.railway.app/api/ras_predict/"
 
 
 in1 = 2
@@ -64,6 +65,7 @@ def sendWav():
     f.close()
     data={}
     data["fileCode"]=enc.decode("utf-8")
+    data["ipMac"]=MYMAC
     # js=json.dumps(data)
     # print(type(js))
     result = requests.post(url,json=data)
@@ -84,7 +86,7 @@ def switch_record(channel):
         control_mode = True
         a_controller.start_recording(ac.DEFAULT_SAVE_FILENAME)
 
-GPIO.add_event_detect(BT, GPIO.FALLING, callback=switch_record, bouncetime=1000)
+# GPIO.add_event_detect(BT, GPIO.FALLING, callback=switch_record, bouncetime=1000)
 
 
 def execute(cmd,gate):
